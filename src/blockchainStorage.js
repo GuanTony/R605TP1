@@ -5,7 +5,7 @@ import {createHash} from 'node:crypto'
 import {v4 as uuidv4} from 'uuid';
 
 /* Chemin de stockage des blocks */
-const path = '../data/blockchain.json'
+const path = './data/blockchain.json'
 
 /**
  * Mes définitions
