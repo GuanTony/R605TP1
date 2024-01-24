@@ -1,7 +1,7 @@
 {
   "name": "hachage-tp1",
   "version": "1.0.0",
-  "description": "",
+  "description": "TP1",
   "main": "src/server.js",
   "type": "module",
   "scripts": {
@@ -9,6 +9,6 @@
     "dev": "node --watch src/server.js"
   },
   "keywords": [],
-  "author": "Laurent Giustignano",
+  "author": "Tony GUAN",
   "license": "ISC"
 }
