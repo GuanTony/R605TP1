@@ -1,11 +1,12 @@
 import {readFile, writeFile} from 'node:fs/promises'
-import {getDate, monSecret} from "./divers.js";
-import {NotFoundError} from "./errors.js";
+import {getDate, monSecret} from "./divers.js"
+import {NotFoundError} from "./errors.js"
 import {createHash} from 'node:crypto'
-import {v4 as uuidv4} from 'uuid';
+import {v4 as uuidv4} from 'uuid'
 
 /* Chemin de stockage des blocks */
 const path = './data/blockchain.json'
+const block = []
 
 /**
  * Mes définitions
@@ -27,6 +28,7 @@ export async function findBlocks() {
         const data = await readFile(path)
         return JSON.parse(data)
     } catch (e) {
+        console.log(e)
         return []
     }
 }
@@ -61,20 +63,20 @@ export async function findLastBlock() {
  */
 
 export async function createBlock(contenu){
-    const currentDate = getDate();
-    const id = uuidv4();
-    const lastBlock = await findLastBlock();
-    const previousBlockString = JSON.stringify(lastBlock);
-    const previousBlockHash = createHash('sha256').update(previousBlockString).digest('hex');
+    const currentDate = getDate()
+    const lastBlock = await findLastBlock()
+    const previousBlockString = JSON.stringify(lastBlock)
+    const previousBlockHash = createHash('sha256').update(previousBlockString).digest('hex')
+    const identifiant = uuidv4()
     const block = {
-        id: id,
+        id: identifiant,
         nom: contenu.nom,
         don: contenu.don,
         date: currentDate,
-        hash: createHash('sha256').update(previousBlockHash + id + contenu.nom + contenu.don + currentDate).digest('hex')
+        hash: createHash('sha256').update(previousBlockHash + identifiant + contenu.nom + contenu.don + currentDate).digest('hex')
     };
-    const blocks = await findBlocks();
-    blocks.push(block);
-    await writeFile(path, JSON.stringify(blocks));
-    return block;
+    const blocks = await findBlocks()
+    blocks.push(block)
+    await writeFile(path, JSON.stringify(blocks))
+    return block
 }

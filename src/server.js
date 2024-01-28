@@ -2,6 +2,7 @@
 import {createServer} from "node:http"
 import {create, liste} from "./blockchain.js";
 import {NotFoundError} from "./errors.js";
+import {findLastBlock} from "./blockchainStorage.js";
 
 createServer(async (req, res) => {
         res.setHeader('Content-Type', 'application/json')
@@ -20,6 +21,9 @@ createServer(async (req, res) => {
                     results = await create(req, res)
                     console.log("le serveur marche en post")
                     break
+                case 'GET:/blockchain/last':
+                    results = await findLastBlock(req, res, url)
+                    console.log("dernier block")
                 default :
                     res.writeHead(404)
             }
