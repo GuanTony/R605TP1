@@ -11,4 +11,7 @@
   "keywords": [],
   "author": "Tony GUAN",
   "license": "ISC"
+  "dependencies": {
+    "uuid": "^9.0.1"
+  }
 }
